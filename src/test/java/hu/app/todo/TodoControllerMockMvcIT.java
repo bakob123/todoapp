@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hu.app.todo.api.model.NewTodoModel;
 import hu.app.todo.todo.TodoStatus;
+import hu.app.todo.todo.data.TestTodoFactory;
 import hu.app.todo.todo.persistence.TodoRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,8 +35,7 @@ public class TodoControllerMockMvcIT extends MockMvcTest {
   @DisplayName("Test todo creation")
   void testTodoCreation() throws Exception {
     // Given
-    NewTodoModel newTodo =
-        new NewTodoModel().summary("Important task").details("I must finish this");
+    NewTodoModel newTodo = TestTodoFactory.getNewModel();
 
     // When
     ResultActions response =

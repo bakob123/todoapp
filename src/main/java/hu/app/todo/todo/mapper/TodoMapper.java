@@ -5,19 +5,20 @@ import hu.app.todo.api.model.TodoModel;
 import hu.app.todo.api.model.TodoStatusModel;
 import hu.app.todo.todo.TodoStatus;
 import hu.app.todo.todo.entity.Todo;
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
 public class TodoMapper {
 
-  public Todo newModelToEntity(NewTodoModel newTodoModel) {
+  public Todo newModelToEntity(@NonNull NewTodoModel newTodoModel) {
     return new Todo()
         .summary(newTodoModel.getSummary())
         .details(newTodoModel.getDetails())
         .status(TodoStatus.CREATED);
   }
 
-  public TodoModel entityToModel(Todo entity) {
+  public TodoModel entityToModel(@NonNull Todo entity) {
     return new TodoModel()
         .id(entity.getId())
         .updateTime(entity.getUpdateTime())

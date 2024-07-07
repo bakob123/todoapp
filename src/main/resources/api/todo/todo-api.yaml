@@ -1,0 +1,111 @@
+openapi: "3.0.0"
+info:
+  title: Todo api
+  version: 1.0.0
+  description: Todo api for todo application
+tags:
+  - name: todo
+    description: Todo related operations
+paths:
+  /todos:
+    post:
+      operationId: createTodo
+      summary: Create a new todo
+      description: Create a new todo
+      tags:
+        - todo
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewTodo'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '401':
+          description: Unaothorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    NewTodo:
+      type: object
+      properties:
+        summary:
+          type: string
+          description: Summary of the new todo
+        details:
+          type: string
+          description: Details regarding new todo
+      required:
+        - summary
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: UUID of the todo
+        updateTime:
+          type: string
+          format: date-time
+          description: Time when the todo was updated
+        createDate:
+          type: string
+          format: date-time
+          description: Time when the todo was created
+        summary:
+          type: string
+          description: Summary of the todo
+        details:
+          type: string
+          description: Details regarding todo
+        status:
+          $ref: '#/components/schemas/TodoStatus'
+      required:
+        - id
+        - updateTime
+        - createDate
+        - summary
+        - details
+        - status
+    TodoStatus:
+      type: string
+      enum:
+        - CREATED
+        - DONE
+    Error:
+      type: object
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
+      required:
+        - code
+        - message

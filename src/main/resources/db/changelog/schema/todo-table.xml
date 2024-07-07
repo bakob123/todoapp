@@ -1,0 +1,42 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="create_todo_table"
+               author="bakob123"
+               logicalFilePath="src/main/resources/db/changelog/schema/todo-table.xml">
+        <createTable tableName="todo" remarks="This table stores todos for users">
+            <column name="id"
+                    type="uuid"
+                    remarks="UUID of the todo record">
+                <constraints nullable="false"/>
+            </column>
+            <column name="update_time"
+                    type="timestamp"
+                    remarks="Timestamp of update">
+                <constraints nullable="false"/>
+            </column>
+            <column name="create_date"
+                    type="timestamp"
+                    remarks="Date of todo creation">
+                <constraints nullable="false"/>
+            </column>
+            <column name="summary"
+                    type="varchar(255)"
+                    remarks="Short summary of a task">
+                <constraints nullable="false"/>
+            </column>
+            <column name="details"
+                    type="varchar(1000)"
+                    remarks="Extra details of a given task">
+            </column>
+            <column name="status"
+                    type="varchar(50)"
+                    remarks="Status of the task">
+            </column>
+        </createTable>
+
+        <addPrimaryKey tableName="todo" columnNames="id" constraintName="todo_pk"/>
+    </changeSet>
+
+</databaseChangeLog>
